@@ -1,0 +1,11 @@
+# Serve the shake client (nginx container on port 80)
+https://192.168.1.X {
+    tls internal
+    reverse_proxy shake-dev:80
+}
+
+# Serve the peer server (shake-server on port 8080)
+https://192.168.1.X:8443 {
+    tls internal
+    reverse_proxy shake-server:8080
+}
