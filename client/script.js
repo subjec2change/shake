@@ -1,8 +1,7 @@
 
-let peerServer = "s://shake-peerserver.astandke.com";
-
-const peerServerWebSocket = `ws${peerServer}`;
-const peerServerHTTP = `http${peerServer}`;
+const peerServerPort = 8443;
+const peerServerWebSocket = `wss://${window.location.hostname}:${peerServerPort}`;
+const peerServerHTTP = `https://${window.location.hostname}:${peerServerPort}`;
 
 // HACK: prevent the browser from queueing too many frames. Defeat pipelineing by calling readPixels() after each frame.
 // This synchronizes the content process and the GPU process. We don't want to delay finished frames, so we do this just after
