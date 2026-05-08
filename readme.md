@@ -25,9 +25,14 @@ the stack uses [Caddy](https://caddyserver.com/) as a reverse proxy to provide H
    hostname -I | awk '{print $1}'
    ```
 
-2. edit `Caddyfile` and replace `<your-ip>` with your IP.
+2. edit `Caddyfile` and replace both `<your-ip>` placeholders (one for the client on port 443, one for the peer server on port 8443) with your IP.
 
-3. start the stack:
+3. create the external Docker network (one-time):
+   ```bash
+   docker network create proxy-network
+   ```
+
+4. start the stack:
    ```bash
    docker compose up -d
    ```
