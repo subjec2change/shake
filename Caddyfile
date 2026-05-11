@@ -1,0 +1,21 @@
+# Replace <your-ip> with your actual local machine IP (run: hostname -I | awk '{print $1}')
+# Run `docker exec caddy caddy trust` once to install the local CA in your OS trust store.
+(LAN_only) {
+    @not_local {
+        not remote_ip 10.34.0.0/24
+    }
+    respond @not_local 403
+}
+# Serve the shake client (nginx on port 80)
+https://<your-ip> {
+    tls internal
+    reverse_proxy shake-dev:80
+    import LAN_only
+}
+
+# Serve the peer server (shake-server on port 8080) on a separate HTTPS port
+https://<your-ip>:8443 {
+    tls internal
+    reverse_proxy shake-server:8080
+    import LAN_only
+}
